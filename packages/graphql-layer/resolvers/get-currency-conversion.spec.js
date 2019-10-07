@@ -27,6 +27,18 @@ describe("getCurrencyConversion", function() {
       done();
     });
   });
+
+  it("converts Afghani afghani into Vietnamese Dong", function(done) {
+    return getCurrencyConversion(
+      "USDAFN",
+      "USDVND",
+      40.0,
+      currencyConverterDatasource
+    ).then(result => {
+      expect(result).toStrictEqual(60.0);
+      done();
+    });
+  });
 });
 
 const mockReturn = {

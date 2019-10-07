@@ -13,6 +13,8 @@ async function getCurrencyConversion(
   if (currencyTo === "USD") {
     return amount / result.quotes[currencyFrom];
   }
+
+  return (amount / result.quotes[currencyFrom]) * result.quotes[currencyTo];
 }
 
 export default getCurrencyConversion;
