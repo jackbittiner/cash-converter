@@ -4,14 +4,14 @@ describe("getCurrencyConversion", function() {
   const currencyConverterDatasource = {
     get: jest.fn(() => mockReturn)
   };
-  it("convert USD into vietnamese Dong", function(done) {
+  it("converts USD into vietnamese Dong", function(done) {
     return getCurrencyConversion(
       "USD",
       "USDVND",
       20,
       currencyConverterDatasource
     ).then(result => {
-      expect(result).toStrictEqual(20.01);
+      expect(result).toStrictEqual(60.0);
       done();
     });
   });
