@@ -2,16 +2,17 @@
   "name": "graphql-layer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "main": "server.js",
   "dependencies": {
-    "apollo-server": "^2.9.5",
-    "graphql": "^14.5.8"
-  }
+    "apollo-datasource-rest": "^0.6.1",
+    "apollo-server": "^2.9.3",
+    "esm": "^3.2.25",
+    "graphql": "^14.4.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node -r esm server.js"
+  },
+  "author": "",
+  "license": "ISC"
 }
