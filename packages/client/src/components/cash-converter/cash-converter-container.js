@@ -27,8 +27,6 @@ function CashConverterContainer() {
     GET_CONVERSION
   );
 
-  console.log(data);
-
   if (error) return <p>Error...</p>;
   if (loading) return <p>Loading...</p>;
 

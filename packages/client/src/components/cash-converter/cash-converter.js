@@ -11,6 +11,7 @@ function CashConverter({ getConversion, data }) {
   const [dropdownTwoValue, setDropdownTwoValue] = useState(currencyTo);
   const [inputOneValue, setInputOneValue] = useState(inputAmount);
   const [inputTwoValue, setInputTwoValue] = useState(outputAmount);
+
   return (
     <div>
       <Dropdown
@@ -24,7 +25,15 @@ function CashConverter({ getConversion, data }) {
         defaultValue={currencyFrom}
       />
       <Input
-        onChange={e => setInputOneValue(e.target.value)}
+        onChange={e => {
+          getConversion({
+            variables: {
+              currencyFrom: dropdownOneValue,
+              currencyTo: dropdownTwoValue,
+              amount: parseFloat(e.target.value)
+            }
+          });
+        }}
         placeholder="Input Value"
         defaultValue={inputAmount}
       />
