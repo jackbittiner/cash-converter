@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { currencyOptions } from "./currency-options";
 import { Dropdown } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
-import { formatVariables } from "./format-variables";
 
 function CashConverter({ getConversion, data }) {
   const { currencyFrom, currencyTo, inputAmount, outputAmount } =
