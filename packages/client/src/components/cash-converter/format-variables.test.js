@@ -11,4 +11,8 @@ describe("formatVariables", function() {
     expect(result.variables.currencyFrom).toBe("USDABC");
     expect(result.variables.currencyTo).toBe("USDXYZ");
   });
+  it("should format the amount correctly as a float", () => {
+    const result = formatVariables("ABC", "XYZ", 10);
+    expect(result.variables.amount).toBe(10.0);
+  });
 });

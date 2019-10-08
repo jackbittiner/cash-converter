@@ -8,7 +8,7 @@ export function formatVariables(currencyFrom, currencyTo, amount) {
     variables: {
       currencyFrom: currencyFromVariable,
       currencyTo: currencyToVariable,
-      amount: amount
+      amount: parseFloat(amount)
     }
   };
 
