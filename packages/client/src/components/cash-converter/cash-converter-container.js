@@ -1,6 +1,7 @@
 import React from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import CashConverter from "./cash-converter";
 
 const GET_CONVERSION = gql`
   query getConversion(
@@ -27,22 +28,10 @@ function CashConverterContainer() {
   const convertedAmount = data && data.convertedAmount;
 
   return (
-    <div>
-      <button
-        onClick={() =>
-          getConversion({
-            variables: {
-              currencyFrom: "USD",
-              currencyTo: "USDGBP",
-              amount: 20.0
-            }
-          })
-        }
-      >
-        PRESS ME
-      </button>
-      <p>convertedAmount: {convertedAmount}</p>
-    </div>
+    <CashConverter
+      getConversion={getConversion}
+      convertedAmount={convertedAmount}
+    />
   );
 }
 
