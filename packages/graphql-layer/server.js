@@ -5,7 +5,7 @@ import getCurrencyConversion from "./resolvers/get-currency-conversion";
 
 const resolvers = {
   Query: {
-    convertedAmount: (
+    convertedCurrency: (
       _root,
       { currencyFrom, currencyTo, amount },
       { dataSources: { currencyConverter } }

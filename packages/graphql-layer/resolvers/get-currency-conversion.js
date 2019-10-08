@@ -6,15 +6,23 @@ async function getCurrencyConversion(
 ) {
   const result = await currencyConverter.get("/");
 
+  let outputAmount;
+
   if (currencyFrom === "USD") {
-    return amount * result.quotes[currencyTo];
+    outputAmount = outputAmount = amount * result.quotes[currencyTo];
+  } else if (currencyTo === "USD") {
+    outputAmount = outputAmount = amount / result.quotes[currencyFrom];
+  } else {
+    outputAmount =
+      (amount / result.quotes[currencyFrom]) * result.quotes[currencyTo];
   }
 
-  if (currencyTo === "USD") {
-    return amount / result.quotes[currencyFrom];
-  }
-
-  return (amount / result.quotes[currencyFrom]) * result.quotes[currencyTo];
+  return {
+    currencyFrom,
+    currencyTo,
+    inputAmount: amount,
+    outputAmount
+  };
 }
 
 export default getCurrencyConversion;

@@ -6,20 +6,25 @@ describe("getCurrencyConversion", function() {
   };
 
   it.each`
-    currencyFrom | currencyTo  | amount  | expectedResult
-    ${"USD"}     | ${"USDVND"} | ${20.0} | ${60.0}
-    ${"USDVND"}  | ${"USD"}    | ${60.0} | ${20.0}
-    ${"USDAFN"}  | ${"USDVND"} | ${40.0} | ${60.0}
+    currencyFrom | currencyTo  | inputAmount | outputAmount
+    ${"USD"}     | ${"USDVND"} | ${20.0}     | ${60.0}
+    ${"USDVND"}  | ${"USD"}    | ${60.0}     | ${20.0}
+    ${"USDAFN"}  | ${"USDVND"} | ${40.0}     | ${60.0}
   `(
-    "should return $expectedResult $currencyTo when given $amount $currencyFrom",
-    ({ currencyFrom, currencyTo, amount, expectedResult }, done) => {
+    "should return $outputAmount $currencyTo when given $inputAmount $currencyFrom",
+    ({ currencyFrom, currencyTo, inputAmount, outputAmount }, done) => {
       return getCurrencyConversion(
         currencyFrom,
         currencyTo,
-        amount,
+        inputAmount,
         currencyConverterDatasource
       ).then(result => {
-        expect(result).toStrictEqual(expectedResult);
+        expect(result).toStrictEqual({
+          currencyFrom,
+          currencyTo,
+          inputAmount,
+          outputAmount
+        });
         done();
       });
     }

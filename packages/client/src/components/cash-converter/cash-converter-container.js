@@ -9,11 +9,16 @@ const GET_CONVERSION = gql`
     $currencyTo: String!
     $amount: Float!
   ) {
-    convertedAmount(
+    convertedCurrency(
       currencyFrom: $currencyFrom
       currencyTo: $currencyTo
       amount: $amount
-    )
+    ) {
+      currencyFrom
+      currencyTo
+      inputAmount
+      outputAmount
+    }
   }
 `;
 
@@ -22,17 +27,12 @@ function CashConverterContainer() {
     GET_CONVERSION
   );
 
+  console.log(data);
+
   if (error) return <p>Error...</p>;
   if (loading) return <p>Loading...</p>;
 
-  const convertedAmount = data && data.convertedAmount;
-
-  return (
-    <CashConverter
-      getConversion={getConversion}
-      convertedAmount={convertedAmount}
-    />
-  );
+  return <CashConverter getConversion={getConversion} data={data} />;
 }
 
 export default CashConverterContainer;

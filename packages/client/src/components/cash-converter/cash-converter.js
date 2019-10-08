@@ -4,12 +4,14 @@ import { Dropdown } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
 import { formatVariables } from "./format-variables";
 
-function CashConverter({ getConversion, convertedAmount }) {
-  const [dropdownOneValue, setDropdownOneValue] = useState(null);
-  const [dropdownTwoValue, setDropdownTwoValue] = useState(null);
-  const [inputOneValue, setInputOneValue] = useState(null);
-  const [inputTwoValue, setInputTwoValue] = useState(null);
+function CashConverter({ getConversion, data }) {
+  const { currencyFrom, currencyTo, inputAmount, outputAmount } =
+    (data && data.convertedCurrency) || "";
 
+  const [dropdownOneValue, setDropdownOneValue] = useState(currencyFrom);
+  const [dropdownTwoValue, setDropdownTwoValue] = useState(currencyTo);
+  const [inputOneValue, setInputOneValue] = useState(inputAmount);
+  const [inputTwoValue, setInputTwoValue] = useState(outputAmount);
   return (
     <div>
       <Dropdown
@@ -20,10 +22,12 @@ function CashConverter({ getConversion, convertedAmount }) {
         fluid
         selection
         options={currencyOptions}
+        defaultValue={currencyFrom}
       />
       <Input
         onChange={e => setInputOneValue(e.target.value)}
         placeholder="Input Value"
+        defaultValue={inputAmount}
       />
       <Dropdown
         onChange={(e, selection) => {
@@ -33,13 +37,18 @@ function CashConverter({ getConversion, convertedAmount }) {
         fluid
         selection
         options={currencyOptions}
+        defaultValue={currencyTo}
       />
-      <Input placeholder="Output Value" value={convertedAmount} />
+      <Input placeholder="Output Value" defaultValue={outputAmount} />
       <button
         onClick={() =>
-          getConversion(
-            formatVariables(dropdownOneValue, dropdownTwoValue, inputOneValue)
-          )
+          getConversion({
+            variables: {
+              currencyFrom: dropdownOneValue,
+              currencyTo: dropdownTwoValue,
+              amount: parseFloat(inputOneValue)
+            }
+          })
         }
       >
         PRESS ME

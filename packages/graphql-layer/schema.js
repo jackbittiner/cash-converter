@@ -2,11 +2,18 @@ import { gql } from "apollo-server";
 
 const typeDefs = gql`
   type Query {
-    convertedAmount(
+    convertedCurrency(
       currencyFrom: String!
       currencyTo: String!
       amount: Float!
-    ): Float!
+    ): CurrencyConversion!
+  }
+
+  type CurrencyConversion {
+    currencyFrom: String!
+    currencyTo: String!
+    inputAmount: Float!
+    outputAmount: Float!
   }
 `;
 
