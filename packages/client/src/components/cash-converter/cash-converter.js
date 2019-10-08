@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { currencyOptions } from "./currency-options";
 import { Dropdown } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
+import { formatVariables } from "./format-variables";
 
 function CashConverter({ getConversion, convertedAmount }) {
   const [dropdownOneValue, setDropdownOneValue] = useState(null);
@@ -33,21 +34,16 @@ function CashConverter({ getConversion, convertedAmount }) {
         selection
         options={currencyOptions}
       />
-      <Input placeholder="Output Value" />
+      <Input placeholder="Output Value" value={convertedAmount} />
       <button
         onClick={() =>
-          getConversion({
-            variables: {
-              currencyFrom: "USD",
-              currencyTo: "USDGBP",
-              amount: 20.0
-            }
-          })
+          getConversion(
+            formatVariables(dropdownOneValue, dropdownTwoValue, inputOneValue)
+          )
         }
       >
         PRESS ME
       </button>
-      <p>convertedAmount: {convertedAmount}</p>
     </div>
   );
 }
