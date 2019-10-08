@@ -16,6 +16,8 @@ function CashConverter({
   const [dropdownOneValue, setDropdownOneValue] = useState(currencyFrom);
   const [dropdownTwoValue, setDropdownTwoValue] = useState(currencyTo);
 
+  const readyToConvert = !!dropdownOneValue && !!dropdownTwoValue;
+
   const debouncedInputHandler = debounce(e => {
     getConversion({
       variables: {
@@ -43,8 +45,10 @@ function CashConverter({
       <Input
         onClick={() => setUpdateInputOneOrTwo(2)}
         onChange={e => {
-          e.persist();
-          debouncedInputHandler(e);
+          if (readyToConvert) {
+            e.persist();
+            debouncedInputHandler(e);
+          }
         }}
         placeholder="Input Value"
         defaultValue={updateInputOneOrTwo === 1 ? outputAmount : inputAmount}
@@ -62,8 +66,10 @@ function CashConverter({
       <Input
         onClick={() => setUpdateInputOneOrTwo(1)}
         onChange={e => {
-          e.persist();
-          debouncedInputHandler(e);
+          if (readyToConvert) {
+            e.persist();
+            debouncedInputHandler(e);
+          }
         }}
         placeholder="Output Value"
         defaultValue={updateInputOneOrTwo === 2 ? outputAmount : inputAmount}
