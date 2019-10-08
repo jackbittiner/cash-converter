@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { currencyOptions } from "./currency-options";
 import { Dropdown } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
+import { debounce } from "lodash";
 
 function CashConverter({
   getConversion,
@@ -14,6 +15,18 @@ function CashConverter({
 
   const [dropdownOneValue, setDropdownOneValue] = useState(currencyFrom);
   const [dropdownTwoValue, setDropdownTwoValue] = useState(currencyTo);
+
+  const debouncedInputHandler = debounce(e => {
+    getConversion({
+      variables: {
+        currencyFrom:
+          updateInputOneOrTwo === 2 ? dropdownOneValue : dropdownTwoValue,
+        currencyTo:
+          updateInputOneOrTwo === 1 ? dropdownOneValue : dropdownTwoValue,
+        amount: parseFloat(e.target.value)
+      }
+    });
+  }, 1000);
 
   return (
     <div>
@@ -30,13 +43,8 @@ function CashConverter({
       <Input
         onClick={() => setUpdateInputOneOrTwo(2)}
         onChange={e => {
-          getConversion({
-            variables: {
-              currencyFrom: dropdownOneValue,
-              currencyTo: dropdownTwoValue,
-              amount: parseFloat(e.target.value)
-            }
-          });
+          e.persist();
+          debouncedInputHandler(e);
         }}
         placeholder="Input Value"
         defaultValue={updateInputOneOrTwo === 1 ? outputAmount : inputAmount}
@@ -54,13 +62,8 @@ function CashConverter({
       <Input
         onClick={() => setUpdateInputOneOrTwo(1)}
         onChange={e => {
-          getConversion({
-            variables: {
-              currencyFrom: dropdownTwoValue,
-              currencyTo: dropdownOneValue,
-              amount: parseFloat(e.target.value)
-            }
-          });
+          e.persist();
+          debouncedInputHandler(e);
         }}
         placeholder="Output Value"
         defaultValue={updateInputOneOrTwo === 2 ? outputAmount : inputAmount}
