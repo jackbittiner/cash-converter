@@ -6,4 +6,9 @@ describe("formatVariables", function() {
     expect(result.variables.currencyFrom).toBe("USD");
     expect(result.variables.currencyTo).toBe("USD");
   });
+  it("should format non US dollars correctly", () => {
+    const result = formatVariables("ABC", "XYZ", 10);
+    expect(result.variables.currencyFrom).toBe("USDABC");
+    expect(result.variables.currencyTo).toBe("USDXYZ");
+  });
 });
