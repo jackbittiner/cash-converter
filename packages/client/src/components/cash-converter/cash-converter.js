@@ -3,14 +3,17 @@ import { currencyOptions } from "./currency-options";
 import { Dropdown } from "semantic-ui-react";
 import { Input } from "semantic-ui-react";
 
-function CashConverter({ getConversion, data }) {
+function CashConverter({
+  getConversion,
+  data,
+  updateInputOneOrTwo,
+  setUpdateInputOneOrTwo
+}) {
   const { currencyFrom, currencyTo, inputAmount, outputAmount } =
     (data && data.convertedCurrency) || "";
 
   const [dropdownOneValue, setDropdownOneValue] = useState(currencyFrom);
   const [dropdownTwoValue, setDropdownTwoValue] = useState(currencyTo);
-  const [inputOneValue, setInputOneValue] = useState(inputAmount);
-  const [inputTwoValue, setInputTwoValue] = useState(outputAmount);
 
   return (
     <div>
@@ -25,6 +28,7 @@ function CashConverter({ getConversion, data }) {
         defaultValue={currencyFrom}
       />
       <Input
+        onClick={() => setUpdateInputOneOrTwo(2)}
         onChange={e => {
           getConversion({
             variables: {
@@ -35,7 +39,7 @@ function CashConverter({ getConversion, data }) {
           });
         }}
         placeholder="Input Value"
-        defaultValue={inputAmount}
+        defaultValue={updateInputOneOrTwo === 1 ? outputAmount : inputAmount}
       />
       <Dropdown
         onChange={(e, selection) => {
@@ -47,20 +51,20 @@ function CashConverter({ getConversion, data }) {
         options={currencyOptions}
         defaultValue={currencyTo}
       />
-      <Input placeholder="Output Value" defaultValue={outputAmount} />
-      <button
-        onClick={() =>
+      <Input
+        onClick={() => setUpdateInputOneOrTwo(1)}
+        onChange={e => {
           getConversion({
             variables: {
-              currencyFrom: dropdownOneValue,
-              currencyTo: dropdownTwoValue,
-              amount: parseFloat(inputOneValue)
+              currencyFrom: dropdownTwoValue,
+              currencyTo: dropdownOneValue,
+              amount: parseFloat(e.target.value)
             }
-          })
-        }
-      >
-        PRESS ME
-      </button>
+          });
+        }}
+        placeholder="Output Value"
+        defaultValue={updateInputOneOrTwo === 2 ? outputAmount : inputAmount}
+      />
     </div>
   );
 }

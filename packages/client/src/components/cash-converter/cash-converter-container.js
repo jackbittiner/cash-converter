@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import CashConverter from "./cash-converter";
@@ -27,10 +27,19 @@ function CashConverterContainer() {
     GET_CONVERSION
   );
 
+  const [updateInputOneOrTwo, setUpdateInputOneOrTwo] = useState(null);
+
   if (error) return <p>Error...</p>;
   if (loading) return <p>Loading...</p>;
 
-  return <CashConverter getConversion={getConversion} data={data} />;
+  return (
+    <CashConverter
+      getConversion={getConversion}
+      data={data}
+      updateInputOneOrTwo={updateInputOneOrTwo}
+      setUpdateInputOneOrTwo={setUpdateInputOneOrTwo}
+    />
+  );
 }
 
 export default CashConverterContainer;
