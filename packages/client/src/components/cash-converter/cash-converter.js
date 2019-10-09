@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import CurrencyDropdown from "./currency-dropdown";
 import { Input } from "semantic-ui-react";
 import { debounce } from "lodash";
+import styled from "styled-components";
+import Header from "./header";
 
 function CashConverter({
   getConversion,
@@ -37,29 +39,54 @@ function CashConverter({
   };
 
   return (
-    <div>
-      <CurrencyDropdown
-        setDropdownValue={setDropdownOneValue}
-        value={currencyFrom}
-      />
-      <Input
-        onClick={() => setUpdateInputOneOrTwo(2)}
-        onChange={e => handleOnChange(e)}
-        placeholder="Input Value"
-        defaultValue={updateInputOneOrTwo === 1 ? outputAmount : inputAmount}
-      />
-      <CurrencyDropdown
-        setDropdownValue={setDropdownTwoValue}
-        value={currencyTo}
-      />
-      <Input
-        onClick={() => setUpdateInputOneOrTwo(1)}
-        onChange={e => handleOnChange(e)}
-        placeholder="Output Value"
-        defaultValue={updateInputOneOrTwo === 2 ? outputAmount : inputAmount}
-      />
-    </div>
+    <>
+      <Header />
+      <Grid>
+        <SectionOne>
+          <CurrencyDropdown
+            setDropdownValue={setDropdownOneValue}
+            value={currencyFrom}
+          />
+          <Input
+            onClick={() => setUpdateInputOneOrTwo(2)}
+            onChange={e => handleOnChange(e)}
+            placeholder="Input Value"
+            defaultValue={
+              updateInputOneOrTwo === 1 ? outputAmount : inputAmount
+            }
+          />
+        </SectionOne>
+        <SectionTwo>
+          <CurrencyDropdown
+            setDropdownValue={setDropdownTwoValue}
+            value={currencyTo}
+          />
+          <Input
+            onClick={() => setUpdateInputOneOrTwo(1)}
+            onChange={e => handleOnChange(e)}
+            placeholder="Output Value"
+            defaultValue={
+              updateInputOneOrTwo === 2 ? outputAmount : inputAmount
+            }
+          />
+        </SectionTwo>
+      </Grid>
+    </>
   );
 }
+
+const Grid = styled.div`
+  display: grid;
+  max-width: 500px;
+  margin: 2em auto;
+`;
+
+const SectionOne = styled.div`
+  display: flex;
+`;
+
+const SectionTwo = styled.div`
+  display: flex;
+`;
 
 export default CashConverter;
