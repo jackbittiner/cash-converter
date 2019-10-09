@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { currencyOptions } from "./currency-options";
-import { Dropdown } from "semantic-ui-react";
+import CurrencyDropdown from "./currency-dropdown";
 import { Input } from "semantic-ui-react";
 import { debounce } from "lodash";
 
@@ -32,15 +31,9 @@ function CashConverter({
 
   return (
     <div>
-      <Dropdown
-        onChange={(e, selection) => {
-          setDropdownOneValue(selection.value);
-        }}
-        placeholder="Select Currency"
-        fluid
-        selection
-        options={currencyOptions}
-        defaultValue={currencyFrom}
+      <CurrencyDropdown
+        setDropdownValue={setDropdownOneValue}
+        value={currencyFrom}
       />
       <Input
         onClick={() => setUpdateInputOneOrTwo(2)}
@@ -53,15 +46,9 @@ function CashConverter({
         placeholder="Input Value"
         defaultValue={updateInputOneOrTwo === 1 ? outputAmount : inputAmount}
       />
-      <Dropdown
-        onChange={(e, selection) => {
-          setDropdownTwoValue(selection.value);
-        }}
-        placeholder="Select Currency"
-        fluid
-        selection
-        options={currencyOptions}
-        defaultValue={currencyTo}
+      <CurrencyDropdown
+        setDropdownValue={setDropdownTwoValue}
+        value={currencyTo}
       />
       <Input
         onClick={() => setUpdateInputOneOrTwo(1)}
