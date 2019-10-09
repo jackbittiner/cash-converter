@@ -29,6 +29,13 @@ function CashConverter({
     });
   }, 1000);
 
+  const handleOnChange = e => {
+    if (readyToConvert) {
+      e.persist();
+      debouncedInputHandler(e);
+    }
+  };
+
   return (
     <div>
       <CurrencyDropdown
@@ -37,12 +44,7 @@ function CashConverter({
       />
       <Input
         onClick={() => setUpdateInputOneOrTwo(2)}
-        onChange={e => {
-          if (readyToConvert) {
-            e.persist();
-            debouncedInputHandler(e);
-          }
-        }}
+        onChange={e => handleOnChange(e)}
         placeholder="Input Value"
         defaultValue={updateInputOneOrTwo === 1 ? outputAmount : inputAmount}
       />
@@ -52,12 +54,7 @@ function CashConverter({
       />
       <Input
         onClick={() => setUpdateInputOneOrTwo(1)}
-        onChange={e => {
-          if (readyToConvert) {
-            e.persist();
-            debouncedInputHandler(e);
-          }
-        }}
+        onChange={e => handleOnChange(e)}
         placeholder="Output Value"
         defaultValue={updateInputOneOrTwo === 2 ? outputAmount : inputAmount}
       />
