@@ -50,6 +50,8 @@ I then moved on to building the client. I decided to organise my project as a mo
 ## The Good
 
 - Fully tested graphql server (the tests are super tidy as well)
+- Little commits
+- Modern react stuff
 - Mostly functional.
 
 ## The Bad
