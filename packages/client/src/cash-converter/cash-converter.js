@@ -42,7 +42,7 @@ function CashConverter({
     <>
       <Header />
       <Grid>
-        <SectionOne>
+        <SectionOne className="section-1">
           <CurrencyDropdown
             setDropdownValue={setDropdownOneValue}
             value={currencyFrom}
@@ -56,7 +56,7 @@ function CashConverter({
             }
           />
         </SectionOne>
-        <SectionTwo>
+        <SectionTwo className="section-2">
           <CurrencyDropdown
             setDropdownValue={setDropdownTwoValue}
             value={currencyTo}
